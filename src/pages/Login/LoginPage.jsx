@@ -1,90 +1,64 @@
 import {Navbar,collaps,typogrphy,IconButton,}
 from "@material-tailwind/react";
+import { FaMobileScreenButton } from "react-icons/fa6";
+import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
-export default function Register() {
+export default function LoginPage(){
   const navigate = useNavigate();
-
-  const [menuOpen, setMenuOpen] = useState(false); 
-  const [name, setName] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [errors, setErrors] = useState({
-    name: "",
     email: "",
     password: ""
   });
-
   const [viewMode, setViewMode] = useState(
     localStorage.getItem("viewMode") || "desktop"
   );
-
   const [showSelector, setShowSelector] = useState(false);
-
-  const handleRegister = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-
     const newErrors = {
-      name: "",
       email: "",
       password: ""
     };
-
-    if (!name.trim()) {
-      newErrors.name = "Full name is required";
-    } else if (name.length < 3) {
-      newErrors.name = "Name must be at least 3 characters";
-    }
-
     if (!email.trim()) {
       newErrors.email = "Email is required";
     } else if (!email.includes("@")) {
       newErrors.email = "Invalid email format";
     }
-
     if (!password.trim()) {
       newErrors.password = "Password is required";
     } else if (password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
     }
-
     setErrors(newErrors);
-
-    if (newErrors.name || newErrors.email || newErrors.password) return;
-
-    navigate("/login");
+    if (newErrors.email || newErrors.password) return;
+    navigate("/");
   };
-
   const layoutClass =
     viewMode === "mobile"
       ? "max-w-sm mx-auto"
       : viewMode === "tablet"
       ? "max-w-4xl mx-auto"
       : "w-full";
-
   return (
     <div className={`flex flex-col min-h-screen bg-gray-100 ${layoutClass}`}>
-
       <button
         onClick={() => setShowSelector(true)}
         className="fixed bottom-6 right-6 bg-teal-500 text-white px-4 py-3 rounded-full shadow-lg z-50"
       >
         View Website
       </button>
-
       {showSelector && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-2xl w-80 text-center shadow-lg">
-
             <h2 className="text-xl font-bold mb-4">
               Choose Device View
             </h2>
-
             <button
               onClick={() => {
                 setViewMode("mobile");
@@ -93,9 +67,10 @@ export default function Register() {
               }}
               className="w-full bg-gray-100 py-2 rounded-xl mb-2"
             >
-              📱 Mobile View
+              <div className="flex justify-center items-center">
+                <FaMobileScreenButton /> mobile view
+              </div>
             </button>
-
             <button
               onClick={() => {
                 setViewMode("tablet");
@@ -106,7 +81,6 @@ export default function Register() {
             >
               📟 Tablet View
             </button>
-
             <button
               onClick={() => {
                 setViewMode("desktop");
@@ -117,7 +91,6 @@ export default function Register() {
             >
               🖥️ Desktop View
             </button>
-
             <button
               onClick={() => setShowSelector(false)}
               className="mt-3 text-sm text-gray-500"
@@ -128,13 +101,10 @@ export default function Register() {
           </div>
         </div>
       )}
-
       <header className="bg-white shadow-sm px-4 sm:px-6 md:px-8 py-4 flex items-center justify-between">
-
         <h1 className="text-xl sm:text-2xl font-bold text-teal-600">
           WhereMy Home
         </h1>
-
         <nav className="hidden md:flex gap-6 text-sm font-medium">
 
           <NavLink to="/" className={({ isActive }) =>
@@ -148,7 +118,7 @@ export default function Register() {
           </NavLink>
 
           <NavLink to="/contact" className={({ isActive }) =>
-          isActive ? "text-teal-600" : "text-gray-600"}>
+            isActive ? "text-teal-600" : "text-gray-600"}>
             Contact
           </NavLink>
 
@@ -186,8 +156,8 @@ export default function Register() {
 
             <div className="flex flex-col gap-5 text-lg font-medium">
               <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-              <Link to="/cats" onClick={() => setMenuOpen(false)}>Cats</Link>
-              <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+              <a href="#" onClick={() => setMenuOpen(false)}>Cats</a>
+              <a href="#" onClick={() => setMenuOpen(false)}>Pets</a>
 
               <Link to="/login" onClick={() => setMenuOpen(false)}>
                 Login
@@ -204,12 +174,7 @@ export default function Register() {
 
       <div className="flex-grow flex items-center justify-center px-4">
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2"
-        >
+        <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
 
           <div className="relative hidden md:block">
             <img
@@ -219,10 +184,10 @@ export default function Register() {
 
             <div className="absolute inset-0 bg-gradient-to-t from-teal-900/80 to-transparent flex flex-col justify-end p-8 text-white">
               <h2 className="text-2xl font-bold mb-2">
-                Start your journey today to find the beautiful cat
+                I am a Frinedly Cat
               </h2>
               <p className="text-sm text-gray-200">
-                Create an account and find your perfect friend.
+                Join our community of cat lovers and discover your perfect guide.
               </p>
             </div>
           </div>
@@ -230,23 +195,10 @@ export default function Register() {
           <div className="p-8 md:p-10 flex flex-col justify-center">
 
             <h1 className="text-2xl font-bold text-gray-800 mb-2">
-              Create Account
+              Welcome Back
             </h1>
 
-            <form onSubmit={handleRegister} className="space-y-4">
-
-              <div>
-                <input
-                  type="text"
-                  className="w-full bg-gray-100 rounded-xl px-4 py-3"
-                  placeholder="Full Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-                {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                )}
-              </div>
+            <form onSubmit={handleLogin} className="space-y-4">
 
               <div>
                 <input
@@ -286,12 +238,12 @@ export default function Register() {
               </div>
 
               <button className="w-full bg-teal-600 text-white py-3 rounded-xl">
-                Create Account
+                Login
               </button>
 
               <div className="text-center text-sm">
-                <Link to="/login" className="text-teal-600">
-                  Already have an account?
+                <Link to="/register" className="text-teal-600">
+                  Create account
                 </Link>
               </div>
 
@@ -299,7 +251,7 @@ export default function Register() {
 
           </div>
 
-        </motion.div>
+        </div>
 
       </div>
 
