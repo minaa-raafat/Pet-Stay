@@ -12,7 +12,6 @@ export default function CatDetails() {
 
   const [showSelector, setShowSelector] = useState(false);
 
-  // ✅ كل الداتا (وفيها الـ 3 بتوعك)
   const cats = [
     {
       id: 1,
@@ -51,7 +50,6 @@ export default function CatDetails() {
         "https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?auto=format&fit=crop&w=800&q=80",
     },
 
-    // ✅ داتا زيادة
     {
       id: 4,
       name: "lolo",
@@ -94,7 +92,6 @@ export default function CatDetails() {
   return (
     <div className={`min-h-screen bg-gray-100 ${layoutClass}`}>
 
-      {/* زرار اختيار الجهاز */}
       <button
         onClick={() => setShowSelector(true)}
         className="fixed bottom-6 right-6 bg-teal-500 text-white px-4 py-3 rounded-full shadow-lg z-50"
@@ -102,7 +99,6 @@ export default function CatDetails() {
         View Website
       </button>
 
-      {/* popup */}
       {showSelector && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-2xl w-80 text-center shadow-lg">
@@ -127,7 +123,6 @@ export default function CatDetails() {
         </div>
       )}
 
-      {/* Navbar */}
       <header className="bg-white shadow-sm px-6 py-4 flex justify-between">
 
         <h1 className="text-xl font-bold text-teal-600">
@@ -186,7 +181,6 @@ export default function CatDetails() {
 
         </div>
 
-        {/* زرار رجوع */}
         <div className="mt-8 text-center">
           <Link to="/" className="text-teal-600">
             ← Back to Home
